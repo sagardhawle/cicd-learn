@@ -9,26 +9,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Say Hello
-        run: echo "hello sagar"
+      - name: Checkout My Code
+        uses: action/checkout@v3 
 
-      - name: Check System
-        run: uname -a
+      - name: See My Files
+        run: ls 
 
-      - name: Check Node Version
-        run: node --version
+      - name: See My Code
+        run: cat .github/workflows/main.yml
 
-      - name: Check Python Version
-        run: python3 --version
 
-      - name: Check Disk Space
-        run: df -h
+      - name: Show Current Folder
+        run: pwd 
 
-      - name: Create a File
-        run: echo "this side from sagar" > file.txt
-
-      - name: Read the File
-        run: cat file.txt
-
-      - name: Show All Files
+      - name: Show All Files Detail
         run: ls -la
