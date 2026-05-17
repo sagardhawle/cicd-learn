@@ -12,15 +12,17 @@ jobs:
       - name: Checkout My Code
         uses: actions/checkout@v4
 
-      - name: See My Files
-        run: ls 
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+           node-version: 18
 
-      - name: See My Code
-        run: cat .github/workflows/main.yml
+      - name: Install Dependencies
+        run: npm install
 
 
-      - name: Show Current Folder
-        run: pwd 
+      - name: Run Tests
+        run: npm test
 
-      - name: Show All Files Detail
-        run: ls -la
+      - name: Show Installed Packages
+        run: ls node_modules
