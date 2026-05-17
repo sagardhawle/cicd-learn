@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - name: Checkout My Code
-        uses: action/checkout@v3 
+        uses: actions/checkout@v4
 
       - name: See My Files
         run: ls 
