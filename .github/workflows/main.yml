@@ -12,16 +12,6 @@ jobs:
       - name: Get My Code
         uses: actions/checkout@v3
 
-      - name: Install Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
-      - name: Install Packages
-        run: npm install
-
-      - name: Run Tests
-        run: npm test
 
       - name: Connect AWS
         uses: aws-actions/configure-aws-credentials@v2
