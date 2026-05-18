@@ -25,14 +25,13 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
-        working-directory: ./terraform
-
+        
       - name: Terraform Apply
         run: terraform apply -auto-approve
-        working-directory: ./terraform
+        
 
       - name: Print EC2 IP
         run: |
           EC2_IP=$(terraform output -raw ec2_public_ip)
           echo "My Server IP: $EC2_IP"
-        working-directory: ./terraform
+        
