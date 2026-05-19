@@ -14,7 +14,7 @@ data "aws_ami" "amazon_linux" {
 
 # Security Group
 resource "aws_security_group" "web_sg" {
-  name = "sagar-web-sg"
+  name = "new-web-sg"
 
   ingress {
     from_port   = 22
