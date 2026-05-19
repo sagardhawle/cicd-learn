@@ -1,0 +1,53 @@
+name: Deploy First Pipeline
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  my-first-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get My Code 
+        uses: actions/checkout@v4
+
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+           node-version: 18
+
+      - name: Install Dependencies
+        run: npm install
+
+
+      - name: Run Tests
+        run: npm test
+
+      - name: Connect AWS 
+        uses: aws-actions/configure-aws-credentials@v2
+        with: 
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+
+      - name:  Terraform Init
+        run: terraform init
+        working-directory: ./terraform
+
+      - name: Terraform Plan
+        run: terraform Plan
+        working-directory: ./terraform  
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
+        working-directory: ./terraform   
+
+      - name: Print EC2 IP
+        run: |
+         EC2_IP=$(terraform output -raw ec2_public_ip)
+        echo "My Server IP: $EC2_IP"
+        working-directory: ./terraform
