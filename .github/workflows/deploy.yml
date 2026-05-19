@@ -38,7 +38,13 @@ jobs:
     - name:  Step - 7 Terraform Apply
       run: terraform apply -auto-approve
 
-    - name: Step - 8 Print EC2 IP
+    - name: Step - 8 Print  Website URL
       run: |
         EC2_IP=$(terraform output -raw ec2_public_ip)
-         echo "My Server IP: $EC2_IP ✅"
+          echo "Website URL: http://$EC2_IP ✅"
+
+    - name: Step 9 - Done Message
+      run: |
+          echo "================================"
+          echo "Website Updated Successfully! ✅"
+          echo "================================"      
