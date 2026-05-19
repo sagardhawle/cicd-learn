@@ -46,7 +46,7 @@ resource "aws_instance" "web" {
   vpc_security_group_ids = [aws_security_group.web_sg.id]
 
 # 👇 Install Apache + Website
-  user_data = file("${path.module}/../userdata.sh")
+ user_data = file("${path.module}/userdata.sh")
 
   tags = {
     Name = "my-web-server"
