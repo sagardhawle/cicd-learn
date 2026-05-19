@@ -1,21 +1,20 @@
 provider "aws" {
-  region = var.regin
+  region = "us-east-1"
 }
 
-# get ami latest #
+# Get Amazon Linux
 data "aws_ami" "amazon_linux" {
   most_recent = true
-  owners = ["amazon"]
+  owners      = ["amazon"]
   filter {
-    name = "name"
+    name   = "name"
     values = ["amzn2-ami-hvm-*-x86_64-gp2"]
   }
 }
 
-
-# create sg #
+# Security Group
 resource "aws_security_group" "web_sg" {
-  name = "our-my-web-sg"
+  name = "web-sg"
 
   ingress {
     from_port   = 22
@@ -25,8 +24,8 @@ resource "aws_security_group" "web_sg" {
   }
 
   ingress {
-    from_port   = 3000
-    to_port     = 3000
+    from_port   = 80
+    to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -37,26 +36,16 @@ resource "aws_security_group" "web_sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
-  tags = {
-    Name = "my-web-sg"
-  }
 }
 
-# ec2 instance #
-resource "aws_instance" "myserver" {
+
+# EC2
+resource "aws_instance" "web" {
   ami                    = data.aws_ami.amazon_linux.id
-  instance_type          = var.instance_type
+  instance_type          = "t2.micro"
   vpc_security_group_ids = [aws_security_group.web_sg.id]
 
-  user_data = <<-EOF
-    #!/bin/bash
-    curl -fsSL https://rpm.nodesource.com/setup_18.x | sudo bash -
-    sudo yum install -y nodejs git
-    sudo npm install -g pm2
-  EOF
-
   tags = {
-    Name = var.server_name
+    Name = "my-web-server"
   }
 }
