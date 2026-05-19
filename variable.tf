@@ -12,3 +12,6 @@ variable "instance_type" {
 variable "server_name" {
   default = "cicd-server"
 }
+
+
+
