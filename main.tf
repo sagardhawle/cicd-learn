@@ -15,7 +15,7 @@ data "aws_ami" "amazon_linux" {
 
 # create sg #
 resource "aws_security_group" "web_sg" {
-  name = "my-web-sg"
+  name = "our-my-web-sg"
 
   ingress {
     from_port   = 22
