@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "us-east-2"
+  region = var.region
 }
 
 # Get Amazon Linux
@@ -12,9 +12,10 @@ data "aws_ami" "amazon_linux" {
   }
 }
 
+
 # Security Group
 resource "aws_security_group" "web_sg" {
-  name = "new-web-sg"
+  name = "apb-sg"
 
   ingress {
     from_port   = 22
@@ -36,6 +37,13 @@ resource "aws_security_group" "web_sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+}
+
+
+# S3 Bucket
+resource "aws_s3_bucket" "mybucket" {
+  bucket = var.bucket_name
+  tags = { Name = "cicd-bucket" }
 }
 
 

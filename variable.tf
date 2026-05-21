@@ -1,5 +1,5 @@
 
-variable "regin" {
+variable "region" {
  default =  "us-east-2"
 
 }
@@ -14,4 +14,6 @@ variable "server_name" {
 }
 
 
-
+variable "bucket_name" {
+  default = "sagar-cicd-bucket-12345"
+}
